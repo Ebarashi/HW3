@@ -1,32 +1,13 @@
 #include <stdio.h>
 #include <string.h>
-#include <strings.h>
-#include <string.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
+
 #define TXT 1024
 #define WORD 30
-#define A 65
-#define Z 90
-#define a 97
-#define z 122
 #define tilda 126
 
-int Gvalue(char Mseq[])
-{
-    int sum = 0;
-    for(int i = 0; i < strlen(Mseq); i++)
-    {
-        if(Mseq[i] >= A && Mseq[i] <= Z)
-        {
-            sum += Mseq[i]-A + 1;
-        }
-        else if(Mseq[i] >=a && Mseq[i] <= z)
-        {
-            sum += Mseq[i]-a + 1;
-        }
+int gValue(char c){
+    if(c >= 'A' && c <= 'Z'){
+        return (c - 'A' + 1);
     }
     
     return sum;
@@ -106,21 +87,7 @@ int AnagramSequences(char word[], char txt[])
     printf("Anagram Sequences: %s\n" , ans);
     return 0;
 }
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int AnagramSequences(char word[],char txt[]){return 0;}
 
 
 
