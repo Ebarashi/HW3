@@ -208,13 +208,13 @@ void sort(char *str){
 }
 
 
-int anagramSequences(){
+int AnagramSequences(char word[],char txt[]){
     printf("Anagram Sequences: ");
     int tiltdaPrint = 0;
     int i = 0;
     while (txt[i] != '\0'){
         if (txt[i] != ' ' && txt[i] != '\t' && txt[i] != '\n'){
-            char copy[CHECKEDWORDLEN];
+            char copy[WORD];
             strcpy(copy, word);
             int flag = 0;
             int j = i;
