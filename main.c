@@ -38,4 +38,6 @@ int main()
     GematriaSequences(char word[],char txt[]);
     AtbashSequences(char word[],char txt[]);
     AnagramSequences(char word[],char txt[]);
+
+    return 0;
 }
