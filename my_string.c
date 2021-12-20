@@ -27,38 +27,7 @@ int Gvalue(char Mseq[])
 
 }
 
-int Gematrias (char w[], char t[])
-{
-    int value = Gvalue(w);
-    char ans[TXT]={0};
-
-     for(int i = 0; i < strlen(t); i++)
-     {
-        char check[] = t[i];
-        if(Gvalue(check) ==0 )
-         {
-            continue;
-         }
-             for(int j=i;j<strlen(t);j++)
-             {
-               char str[] =t[j];
-               if (Gvalue(str)==0)
-               {
-                   continue;
-               }
-                if ()
-                {
-                    /* code */
-                }
-                
-             }
-        }
-       
-}
-
-
-
-void GematriaSequences(char word[],char txt[])
+int GematriaSequences(char word[],char txt[])
 {
    // char *SEQUENCE;
     int value = Gvalue(word);
@@ -97,6 +66,7 @@ void GematriaSequences(char word[],char txt[])
     }
     ans[ansIndex-1]='\0';
     printf("Gematria Sequences: %s\n" , ans);
+    return 0;
 }
 
 
@@ -145,7 +115,31 @@ char *Srev(char *str)
     return str;
 }
 
-char AtbashSquences(char word[],char txt[]){
+int compare (char *check,char *atbash)
+{
+    int j=0;
+    for(int i=0; i < len(atbash); i++)
+    {
+        if(isalpha(check[i]))
+        {
+            if(check[i]!=atbash[j])
+            {
+                return 0;
+            }
+            else if(check[i]==atbash[j])
+            {
+                j++;
+            }
+        }
+        else if(!isalpha(check[i]))
+        {
+            continue;
+        }
+    }
+    return 1;
+}
+
+int AtbashSequences(char word[],char txt[]){
     char *atbash = Atbash(word);
     char *atbashRev = Srev(atbash);
     int value = Gvalue(atbash);
@@ -191,31 +185,10 @@ char AtbashSquences(char word[],char txt[]){
     }
     ans[ansIndex-1]='\0';
     printf("Atbash Sequences: %s\n" , ans);
+    return 0;
 }
 
-int compare (char *check,char *atbash)
-{
-    int j=0;
-    for(int i=0; i < len(atbash); i++)
-    {
-        if(isalpha(check[i]))
-        {
-            if(check[i]!=atbash[j])
-            {
-                return 0;
-            }
-            else if(check[i]==atbash[j])
-            {
-                j++;
-            }
-        }
-        else if(!isalpha(check[i]))
-        {
-            continue;
-        }
-    }
-    return 1;
-}
+
 
 
 
