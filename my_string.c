@@ -204,51 +204,51 @@ void sort(char *str){
 }
 
 
-int AnagramSequences(char word[],char txt[]){
-    printf("Anagram Sequences: ");
-    int tiltdaPrint = 0;
-    int i = 0;
-    while (txt[i] != '\0'){
-        if (txt[i] != ' ' && txt[i] != '\t' && txt[i] != '\n'){
-            char copy[WORD];
-            strcpy(copy, word);
-            int flag = 0;
-            int j = i;
-            while (txt[j] != '\0' && flag == 0) {
-                if (txt[j] != ' ' && txt[j] != '\t' && txt[j] != '\n'){
-                    flag = -1;
-                    for (int b = 0; copy[b] != '\0' && flag <= -1; b++){
-                        if (txt[j] == copy[b]) {
-                            copy[b] *= -1;
-                            flag = 0;
-                        }
-                    }
-                    if (flag == 0){
-                        flag = 1;
-                        for (int b = 0; copy[b] != '\0' && flag == 1; b++) {
-                            if (copy[b] > 0) {
-                                flag = 0;
-                            }
-                        }
-                    }
-                }
-                ++j;
-            }
-            --j;
-            if (flag == 1){
-                if (tiltdaPrint){
-                    printf("~");
-                }
-                for (int b = i; b <= j; b++){
-                    printf("%c", txt[b]);
-                }
-                ++tiltdaPrint;
-            }
-        }
-        ++i;
-    }
-    return 0;
-}
+// int AnagramSequences(char word[],char txt[]){
+//     printf("Anagram Sequences: ");
+//     int tiltdaPrint = 0;
+//     int i = 0;
+//     while (txt[i] != '\0'){
+//         if (txt[i] != ' ' && txt[i] != '\t' && txt[i] != '\n'){
+//             char copy[WORD];
+//             strcpy(copy, word);
+//             int flag = 0;
+//             int j = i;
+//             while (txt[j] != '\0' && flag == 0) {
+//                 if (txt[j] != ' ' && txt[j] != '\t' && txt[j] != '\n'){
+//                     flag = -1;
+//                     for (int b = 0; copy[b] != '\0' && flag <= -1; b++){
+//                         if (txt[j] == copy[b]) {
+//                             copy[b] *= -1;
+//                             flag = 0;
+//                         }
+//                     }
+//                     if (flag == 0){
+//                         flag = 1;
+//                         for (int b = 0; copy[b] != '\0' && flag == 1; b++) {
+//                             if (copy[b] > 0) {
+//                                 flag = 0;
+//                             }
+//                         }
+//                     }
+//                 }
+//                 ++j;
+//             }
+//             --j;
+//             if (flag == 1){
+//                 if (tiltdaPrint){
+//                     printf("~");
+//                 }
+//                 for (int b = i; b <= j; b++){
+//                     printf("%c", txt[b]);
+//                 }
+//                 ++tiltdaPrint;
+//             }
+//         }
+//         ++i;
+//     }
+//     return 0;
+// }
 
 
 int compareAnagram (char *check,char *word){
@@ -276,7 +276,7 @@ int compareAnagram (char *check,char *word){
     return 1;
 }
 
-int anagram(char word[], char txt[])
+int anagramSequences(char word[], char txt[])
 {
     int value = Gvalue(word);
     int currIndex=0;
