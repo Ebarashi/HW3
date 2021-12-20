@@ -206,4 +206,69 @@ void sort(char *str){
         }
     }
 }
+
+
+int anagramSequences(){
+    printf("Anagram Sequences: ");
+    int tiltdaPrint = 0;
+    int i = 0;
+    while (txt[i] != '\0'){
+        if (txt[i] != ' ' && txt[i] != '\t' && txt[i] != '\n'){
+            char copy[CHECKEDWORDLEN];
+            strcpy(copy, word);
+            int flag = 0;
+            int j = i;
+            while (txt[j] != '\0' && flag == 0) {
+                if (txt[j] != ' ' && txt[j] != '\t' && txt[j] != '\n'){
+                    flag = -1;
+                    for (int b = 0; copy[b] != '\0' && flag <= -1; b++){
+                        if (txt[j] == copy[b]) {
+                            copy[b] *= -1;
+                            flag = 0;
+                        }
+                    }
+                    if (flag == 0){
+                        flag = 1;
+                        for (int b = 0; copy[b] != '\0' && flag == 1; b++) {
+                            if (copy[b] > 0) {
+                                flag = 0;
+                            }
+                        }
+                    }
+                }
+                ++j;
+            }
+            --j;
+            if (flag == 1){
+                if (tiltdaPrint){
+                    printf("~");
+                }
+                for (int b = i; b <= j; b++){
+                    printf("%c", txt[b]);
+                }
+                ++tiltdaPrint;
+            }
+        }
+        ++i;
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
