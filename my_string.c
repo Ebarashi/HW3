@@ -9,9 +9,37 @@ int gValue(char c){
     if(c >= 'A' && c <= 'Z'){
         return (c - 'A' + 1); 
     }
-    if(c >= 'a' && c <= 'z'){
-        return (c - 'a' + 1);
+    
+    return sum;
+
+}
+
+int compareAnagram (char *check,char *word){
+    int sort_word[128] = {0};
+    int sort_check[128] = {0};
+    for(int i=0; i<strlen(word);i++){
+        if(word[i] != ' ' && word[i] != '\n' && word[i] != '\t'){
+            char c = word[i];
+            int ind = (int)(c);
+            sort_word[ind]++;
+        }
     }
+    for(int i=0; i < strlen(check); i++){
+        if(check[i] != ' ' && check[i] != '\n' && check[i] != '\t'){
+            char c = check[i];
+            int ind = (int)(c);
+            sort_check[ind]++;
+        }
+    }
+    for(int i=0; i<128; i++){
+        if(sort_check[i] != sort_word[i]){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int AtbashSequences(char word [],char txt[]){
     return 0;
 }
 int gValueWord(char word[]){
@@ -22,37 +50,55 @@ int gValueWord(char word[]){
     return sum;
 }
 
-int GematriaSequences(char word[],char txt[])
+int AnagramSequences(char word[], char txt[])
 {
-    printf("Gematria Sequences: ");
-    int startSentence = 0;
-    int wordGV = 0;
-
-
-    int i=0;
-    while(i<strlen(word)){ wordGV=wordGV+gValue(word[i]); i++;}
-
-    for (int i = 0; i < strlen(txt); i++)
+    int value = Gvalue(word);
+    int currIndex=0;
+    int ansIndex=0;
+    char ans[TXT] = {0};
+    char *checkSeq;
+    for(int i = 0; i < strlen(txt); i++)
     {
-        int tempGV = 0;
-        if (gValue(txt[i]) != 0)
+        currIndex=0;
+        char str1[] = {txt[i],'\0'};
+        if(Gvalue(str1)==0)
         {
-            for (int j = i; (j < strlen(txt)) && (tempGV <= wordGV); j++)
+            continue;
+        }
+        checkSeq[currIndex++]=txt[i];
+        for(int j=i; j < strlen(txt); j++)
+        {
+            char str2[] ={txt[j],'\0'};
+            if(Gvalue(checkSeq) + Gvalue(str2) < value)
             {
-                tempGV += gValue(txt[j]);
-                if (tempGV == wordGV)
+                checkSeq[currIndex++] = txt[j];
+            }
+            if(Gvalue(checkSeq) == value )
+            {
+                if ((txt[j] >=a && txt[j] <= z) || (txt[j] >= A && txt[j] <= Z))
                 {
+<<<<<<< HEAD
                     if (startSentence == 1) printf("~");
                     startSentence = 1;
                     for (int pr = i; pr <= j; pr++)
                     {
                         printf("%c", txt[pr]);
+=======
+                    if (compareAnagram(checkSeq,word) == 1 )
+                    {
+                        for(int k=0; k<currIndex; k++)
+                        {
+                        ans[ansIndex++] = checkSeq[k]; 
+                        }
+>>>>>>> 2829dd88dbe5a6b891576e136372185c017e0037
                     }
-                    break;  
-                } 
-            }  
-        }   
+                  ans[ansIndex++] = tilda;
+                }
+            
+            }
+        }
     }
+<<<<<<< HEAD
     return 0;   
 }
 
@@ -132,6 +178,11 @@ printf("\nAtbash Sequences: ");
 
 return 0;
 
+=======
+    ans[ansIndex-1]='\0';
+    printf("Anagram Sequences: %s\n" , ans);
+    return 0;
+>>>>>>> 2829dd88dbe5a6b891576e136372185c017e0037
 }
 int AnagramSequences(char word[],char txt[]){return 0;}
 
