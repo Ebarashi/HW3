@@ -253,7 +253,7 @@ int AnagramSequences(char word[],char txt[]){
 
 int compareAnagram (char *check,char *word){
     int sort_word[128] = {0};
-    int sort_txt[128] = {0};
+    int sort_check[128] = {0};
     for(int i=0; i<strlen(word);i++){
         if(word[i] != ' ' && word[i] != '\n' && word[i] != '\t'){
             char c = word[i];
@@ -262,14 +262,14 @@ int compareAnagram (char *check,char *word){
         }
     }
     for(int i=0; i < len(check); i++){
-        if(txt[i] != ' ' && txt[i] != '\n' && txt[i] != '\t'){
-            char c = txt[i];
+        if(check[i] != ' ' && check[i] != '\n' && check[i] != '\t'){
+            char c = check[i];
             int ind = (int)(c);
-            sort_txt[ind]++;
+            sort_check[ind]++;
         }
     }
     for(int i=0; i<128; i++){
-        if(sort_txt[i] != sort_word[i]){
+        if(sort_check[i] != sort_word[i]){
             return 0;
         }
     }
@@ -303,7 +303,7 @@ int anagram(char word[], char txt[])
             {
                 if ((txt[j] >=a && txt[j] <= z) || (txt[j] >= A && txt[j] <= Z))
                 {
-                    if (compareAnagram(checkSeq,atbash) == 1 )
+                    if (compareAnagram(checkSeq,word) == 1 )
                     {
                         for(int k=0; k<currIndex; k++)
                         {
@@ -339,4 +339,3 @@ int anagram(char word[], char txt[])
 
 
 
-}

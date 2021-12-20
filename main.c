@@ -35,9 +35,9 @@ int main()
         }
     }
     
-    GematriaSequences(char word[],char txt[]);
-    AtbashSequences(char word[],char txt[]);
-    AnagramSequences(char word[],char txt[]);
+    GematriaSequences(word,txt);
+    AtbashSequences(word,txt);
+    AnagramSequences(word,txt);
 
     return 0;
 }
