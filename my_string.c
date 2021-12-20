@@ -7,12 +7,19 @@
 
 int gValue(char c){
     if(c >= 'A' && c <= 'Z'){
-        return (c - 'A' + 1);
+        return (c - 'A' + 1); 
     }
     if(c >= 'a' && c <= 'z'){
         return (c - 'a' + 1);
     }
     return 0;
+}
+int gValueWord(char word[]){
+    int sum=0;
+    for(int i =0;i<strlen(word);i++){
+        sum+=gValue(word[i]);
+    }
+    return sum;
 }
 
 int GematriaSequences(char word[],char txt[])
@@ -37,9 +44,9 @@ int GematriaSequences(char word[],char txt[])
                 {
                     if (startSentence == 1) printf("~");
                     startSentence = 1;
-                    for (int k = i; k <= j; k++)
+                    for (int pr = i; pr <= j; pr++)
                     {
-                        printf("%c", txt[k]);
+                        printf("%c", txt[pr]);
                     }
                     break;  
                 } 
@@ -50,8 +57,77 @@ int GematriaSequences(char word[],char txt[])
 }
 
 
+char *Atbash(char *Atbash)
+{
+    for(int i =0; i < sizeof(Atbash); i++)
+    {
+        if(Atbash[i] >= A && Atbash[i] <= Z)
+        {
+            char str[] = {Atbash[i],'\0'};
+            Atbash[i] = Z - Gvalue(str) + 1;
+        }
+        if(Atbash[i] >= a && Atbash[i] <= z)
+        {
+            char str[] = {Atbash[i],'\0'};
+            Atbash[i] = z - Gvalue(str) + 1;
+        }
+    }
+    return Atbash;
+}
+
+char *Srev(char *str)
+{
+    int len = strlen(str);
+    //str [len] = '0';
+    int k = len - 1;
+    if(len%2 == 0)
+    {
+        for(int i = 0; i < len/2; i++)
+        {
+            char temp = str[k];
+            str[k--] = str[i];
+            str[i] = temp;
+        }
+    }
+    else
+    {
+        for(int i = 0; i < ((len-1)/2) + 1; i++)
+        {
+            char temp = str[k];
+            str[k--] = str[i];
+            str[i] = temp;
+        }
+    }
+    str[len]='\0';
+    return str;
+}
+
+int compareAtbash (char *check,char *atbash)
+{
+    int j=0;
+    for(int i=0; i < strlen(atbash); i++)
+    {
+        if(isalpha(check[i]))
+        {
+            if(check[i]!=atbash[j])
+            {
+                return 0;
+            }
+            else if(check[i]==atbash[j])
+            {
+                j++;
+            }
+        }
+        else if(!isalpha(check[i]))
+        {
+            continue;
+        }
+    }
+    return 1;
+}
 int AtbashSequences(char word[],char txt[]){
 printf("\nAtbash Sequences: ");
+
 
 
 return 0;
