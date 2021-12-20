@@ -1,5 +1,11 @@
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
+#include <string.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 #define TXT 1024
 #define WORD 30
 #define A 65
@@ -118,7 +124,7 @@ char *Srev(char *str)
 int compareAtbash (char *check,char *atbash)
 {
     int j=0;
-    for(int i=0; i < len(atbash); i++)
+    for(int i=0; i < strlen(atbash); i++)
     {
         if(isalpha(check[i]))
         {
@@ -261,7 +267,7 @@ int compareAnagram (char *check,char *word){
             sort_word[ind]++;
         }
     }
-    for(int i=0; i < len(check); i++){
+    for(int i=0; i < strlen(check); i++){
         if(check[i] != ' ' && check[i] != '\n' && check[i] != '\t'){
             char c = check[i];
             int ind = (int)(c);
