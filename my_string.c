@@ -276,7 +276,7 @@ int compareAnagram (char *check,char *word){
     return 1;
 }
 
-int anagramSequences(char word[], char txt[])
+int AnagramSequences(char word[], char txt[])
 {
     int value = Gvalue(word);
     int currIndex=0;
