@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 #define TXT 1024
 #define WORD 30
@@ -27,11 +30,7 @@ int GematriaSequences(char word[],char txt[])
 {
     printf("Gematria Sequences: ");
     int startSentence = 0;
-    int wordGV = 0;
-
-
-    int i=0;
-    while(i<strlen(word)){ wordGV=wordGV+gValue(word[i]); i++;}
+    int wordGV = gValueWord(word);
 
     for (int i = 0; i < strlen(txt); i++)
     {
@@ -54,72 +53,85 @@ int GematriaSequences(char word[],char txt[])
             }  
         }   
     }
+    printf("\n");
     return 0;   
 }
 
 
-char *Atbash(char *Atbash)
+char *Atbash(char Atbash[])
 {
-    for(int i =0; i < sizeof(Atbash); i++)
+    char *ansA;
+    ansA = (char*)malloc(strlen(Atbash));
+
+    for(int i =0; i < strlen(Atbash); i++)
     {
-        if(Atbash[i] >= A && Atbash[i] <= Z)
+        if(Atbash[i] >= 'A' && Atbash[i] <= 'Z')
         {
             char str[] = {Atbash[i],'\0'};
-            Atbash[i] = Z - Gvalue(str) + 1;
+            ansA[i] = 'Z' - gValueWord(str) + 1;
         }
-        if(Atbash[i] >= a && Atbash[i] <= z)
+        if(Atbash[i] >= 'a' && Atbash[i] <= 'z')
         {
             char str[] = {Atbash[i],'\0'};
-            Atbash[i] = z - Gvalue(str) + 1;
+            ansA[i] = 'z' - gValueWord(str) + 1;
         }
     }
-    return Atbash;
+    return ansA;
 }
 
 char *Srev(char *str)
 {
-    int len = strlen(str);
+    char *ansR;
+    ansR = (char*)malloc(strlen(str));
+    //int len = strlen(str);
+    int j = 0;
+    for (int i = strlen(str) - 1; i >= 0; i--)
+    {
+       ansR[j] = str[i];
+       j++; 
+    }
+    
     //str [len] = '0';
-    int k = len - 1;
-    if(len%2 == 0)
-    {
-        for(int i = 0; i < len/2; i++)
-        {
-            char temp = str[k];
-            str[k--] = str[i];
-            str[i] = temp;
-        }
-    }
-    else
-    {
-        for(int i = 0; i < ((len-1)/2) + 1; i++)
-        {
-            char temp = str[k];
-            str[k--] = str[i];
-            str[i] = temp;
-        }
-    }
-    str[len]='\0';
-    return str;
+    // int k = len - 1;
+    // if(len%2 == 0)
+    // {
+    //     for(int i = 0; i < len/2; i++)
+    //     {
+    //         char temp = str[k];
+    //         str[k--] = str[i];
+    //         str[i] = temp;
+    //     }
+    // }
+    // else
+    // {
+    //     for(int i = 0; i < ((len-1)/2) + 1; i++)
+    //     {
+    //         char temp = str[k];
+    //         str[k--] = str[i];
+    //         str[i] = temp;
+    //     }
+    // }
+    // str[len]='\0';
+     return ansR;
 }
 
-int compareAtbash (char *check,char *atbash)
+int compareAtbash (char txt[],char *atbash, int s , int e)
 {
     int j=0;
-    for(int i=0; i < strlen(atbash); i++)
+    for(int i=s; i <= e; i++)
     {
-        if(isalpha(check[i]))
+        if(isalpha(txt[i]))
         {
-            if(check[i]!=atbash[j])
+            if(txt[i]!=atbash[j])
             {
                 return 0;
             }
-            else if(check[i]==atbash[j])
+            else if(txt[i]==atbash[j])
             {
                 j++;
             }
         }
-        else if(!isalpha(check[i]))
+        else if(!isalpha(txt[i]))
         {
             continue;
         }
@@ -128,30 +140,77 @@ int compareAtbash (char *check,char *atbash)
 }
 
 
-int AtbashSequences(char word [],char txt[]){
-    return 0;
-}
+ int AtbashSequences(char *word , char *txt)
+ {
+    char *atbash = Atbash(word);
+    char *atbashRev = Srev(atbash);
+    printf("Atbash Sequences: " );
+    int ansIndex=0;
+    for(int i = 0; i < strlen(txt); i++)
+    {
+        for(int j=i; j < strlen(txt); j++)
+         {
+            if((isalpha(txt[i])!=0) && (isalpha(txt[j])!=0) )
+            {
+                if((compareAtbash(txt,atbash,i,j) == 1 || compareAtbash(txt,atbashRev,i,j) == 1) && (j-i >= strlen(word)-1) )
+                {
+                  if (ansIndex == 0)
+                    {
+                        for(int k=i; k <= j; k++)
+                        {
+                            printf("%c", txt[k]);
+                        }
+                        ansIndex++;
 
+                    }
+                    else{
+                            printf("~");
+                            for(int k=i; k <= j; k++)
+                            {
+                                printf("%c", txt[k]);
+                            }
 
-int compareAnagram (char *check,char *word){
-    int sort_word[128] = {0};
-    int sort_check[128] = {0};
-    for(int i=0; i<strlen(word);i++){
-        if(word[i] != ' ' && word[i] != '\n' && word[i] != '\t'){
+                         }
+                }     
+
+            }
+        }
+            
+
+    }
+    printf("\n");
+    free(atbash);
+    free(atbashRev); 
+    return 0; 
+ }
+
+int compareAnagram(char txt[],char word[], int start,int end)
+{
+    int word_Anagram[128] = {0};
+    int txt_Anagram[128] = {0};
+
+    for(int i=0; i < strlen(word); i++)
+    {
+        if(word[i] != ' ' && word[i] != '\n' && word[i] != '\t')
+        {
             char c = word[i];
-            int ind = (int)(c);
-            sort_word[ind]++;
+            int index = (int)(c);
+            word_Anagram[index]++;
         }
     }
-    for(int i=0; i < strlen(check); i++){
-        if(check[i] != ' ' && check[i] != '\n' && check[i] != '\t'){
-            char c = check[i];
-            int ind = (int)(c);
-            sort_check[ind]++;
+    for(int i=start; i <= end;i++)
+    {
+        if(txt[i] != ' ' && txt[i] != '\n' && txt[i] != '\t')
+        {
+            char c = txt[i];
+            int index = (int)(c);
+            txt_Anagram[index]++;
         }
     }
-    for(int i=0; i<128; i++){
-        if(sort_check[i] != sort_word[i]){
+    for(int i = 0; i < 128; i++)
+    {
+        if(txt_Anagram[i] != word_Anagram[i])
+        {
             return 0;
         }
     }
@@ -159,50 +218,46 @@ int compareAnagram (char *check,char *word){
 }
 
 
-
-
-int AnagramSequences(char word[], char txt[])
+int AnagramSequences(char *word, char *txt)
 {
-    int value = Gvalue(word);
-    int currIndex=0;
+    printf("Anagram Sequences: " );
     int ansIndex=0;
-    char ans[TXT] = {0};
-    char *checkSeq;
     for(int i = 0; i < strlen(txt); i++)
     {
-        currIndex=0;
-        char str1[] = {txt[i],'\0'};
-        if(Gvalue(str1)==0)
-        {
-            continue;
-        }
-        checkSeq[currIndex++]=txt[i];
         for(int j=i; j < strlen(txt); j++)
-        {
-            char str2[] ={txt[j],'\0'};
-            if(Gvalue(checkSeq) + Gvalue(str2) < value)
+         {
+            if((isalpha(txt[i])!=0) && (isalpha(txt[j])!=0))
             {
-                checkSeq[currIndex++] = txt[j];
-            }
-            if(Gvalue(checkSeq) == value )
-            {
-                if ((txt[j] >=a && txt[j] <= z) || (txt[j] >= A && txt[j] <= Z))
-                {
-                    if (compareAnagram(checkSeq,word) == 1 )
+             if(compareAnagram(txt,word,i,j) == 1)
+             {
+                  if (ansIndex == 0)
                     {
-                        for(int k=0; k<currIndex; k++)
+                        for(int k=i; k <= j; k++)
                         {
-                        ans[ansIndex++] = checkSeq[k]; 
+                            printf("%c", txt[k]);
                         }
+                        ansIndex++;
+
                     }
-                  ans[ansIndex++] = tilda;
-                }
-            
+                    else{
+                        printf("~");
+                        for(int k=i; k <= j; k++)
+                        {
+                             printf("%c", txt[k]);
+                        }
+
+                    }     
+             }
+
             }
         }
-    }
-    return 0;   
-}
+            
 
+    }
+    printf("\n");
+    return 0; 
+
+}
+   
 
 
