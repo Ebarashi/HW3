@@ -14,6 +14,11 @@ int main()
 
     scanf("%s",word);
     scanf("%[^~]",txt);
+
+    int wordSize = strlen(word);
+    int txtSize = strlen(txt);
+    word[wordSize] = '\0';
+    txt[txtSize] = '\0';
     
 
     // int i = 0;

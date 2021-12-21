@@ -254,7 +254,7 @@ int AnagramSequences(char *word, char *txt)
             
 
     }
-    printf("\n");
+    //printf("\n");
     return 0; 
 
 }
